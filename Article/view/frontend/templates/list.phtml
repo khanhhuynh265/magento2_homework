@@ -1,0 +1,34 @@
+<?php
+$collection = $this->getTestCollection();
+
+?>
+<table class="data table" id="test-data-table">
+    <caption class="table-caption">Vky Test Data</caption>
+    <thead>
+    <tr>
+        <th scope="col" class="col title">Title</th>
+        <th scope="col" class="col content">Content</th>
+        <th scope="col" class="col author">Image</th>
+        <th scope="col" class="col created_at">Created At</th>
+        <th scope="col" class="col actions">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($collection as $key => $data): ?>
+        <tr>
+            <td data-th="Title" class="col title"><?php echo $data->getTitle(); ?></td>
+            <td data-th="Content" class="col content"><?php echo $data->getContent(); ?></td>
+            <td data-th="Image" class="col author"><?php echo $data->getImage(); ?></td>
+            <td data-th="Date" class="col created_at"><?php echo $data->getCreatedAt(); ?></td>
+            <td data-th="Actions" class="col actions">
+                <a href="<?php echo $block->getBaseUrl().'article/index/view/id/'.$data->getId(); ?>" class="action view">
+                    <span>View</span>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php if ($block->getPagerHtml()): ?>
+    <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+<?php endif ?>

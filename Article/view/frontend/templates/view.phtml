@@ -1,0 +1,19 @@
+<?php
+$singleData = $this->getSingleData();
+?>
+<div>
+    <h3>Title</h3>
+    <p><?php echo $singleData->getTitle(); ?></p>
+</div>
+<div>
+    <h3>Content</h3>
+    <p><?php echo $singleData->getContent(); ?></p>
+</div>
+<div>
+    <h3>Image</h3>
+    <p><?php echo $singleData->getImage(); ?></p>
+</div>
+<div>
+    <h3>Date</h3>
+    <p><?php echo $singleData->getCreatedAt(); ?></p>
+</div>
