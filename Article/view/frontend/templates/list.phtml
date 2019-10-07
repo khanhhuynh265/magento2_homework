@@ -1,6 +1,5 @@
 <?php
 $collection = $this->getTestCollection();
-
 ?>
 <table class="data table" id="test-data-table">
     <caption class="table-caption">Vky Test Data</caption>
@@ -21,7 +20,7 @@ $collection = $this->getTestCollection();
             <td data-th="Image" class="col author"><?php echo $data->getImage(); ?></td>
             <td data-th="Date" class="col created_at"><?php echo $data->getCreatedAt(); ?></td>
             <td data-th="Actions" class="col actions">
-                <a href="<?php echo $block->getBaseUrl().'article/index/view/id/'.$data->getId(); ?>" class="action view">
+                <a href="<?php echo $block->getBaseUrl() . 'article/index/view/id/' . $data->getId(); ?>" class="action view">
                     <span>View</span>
                 </a>
             </td>

@@ -2,11 +2,9 @@
 
 namespace Smartosc\Article\Block;
 
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\Template\Context;
+use Smartosc\Article\Helper\Config;
 use Smartosc\Article\Model\ArticleFactory;
-use \Magento\Framework\App\Config\ScopeConfigInterface;
-use \Magento\Store\Model\ScopeInterface;
 
 /**
  * Test List block
@@ -17,15 +15,17 @@ class ListData extends \Magento\Framework\View\Element\Template
      * @var ArticleFactory
      */
     private $_test;
+    public $_helper;
 
     public function __construct(
         Context $context,
-        ArticleFactory $test
+        ArticleFactory $test,
+        Config $helper
     ) {
         $this->_test = $test;
+        $this->_helper=$helper;
         parent::__construct($context);
     }
-
     public function _prepareLayout()
     {
         $this->pageConfig->getTitle()->set(__('Simple Custom Module List Page'));
@@ -36,7 +36,11 @@ class ListData extends \Magento\Framework\View\Element\Template
                 'Magento\Theme\Block\Html\Pager',
                 'smartosc.article'
             )
-                ->setAvailableLimit([5=>5,10=>10,15=>15])
+                ->setAvailableLimit([
+                    $this->_helper->getArticleConfig() => $this->_helper->getArticleConfig(),
+                    $this->_helper->getArticleConfig()*2 => $this->_helper->getArticleConfig()*2,
+                    $this->_helper->getArticleConfig()*3 => $this->_helper->getArticleConfig()*3
+                ])
                 ->setShowPerPage(true)
                 ->setCollection($this->getTestCollection());
 
@@ -47,8 +51,8 @@ class ListData extends \Magento\Framework\View\Element\Template
 
     public function getTestCollection()
     {
-        $page = ($this->getRequest()->getParam('p'))? $this->getRequest()->getParam('p') : 1;
-        $pageSize = ($this->getRequest()->getParam('limit'))? $this->getRequest()->getParam('limit') : 5;
+        $page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
+        $pageSize = ($this->getRequest()->getParam('limit')) ? $this->getRequest()->getParam('limit') : $this->_helper->getArticleConfig();
 
         $test = $this->_test->create();
         $collection = $test->getCollection();
@@ -62,5 +66,4 @@ class ListData extends \Magento\Framework\View\Element\Template
     {
         return $this->getChildHtml('pager');
     }
-
 }
